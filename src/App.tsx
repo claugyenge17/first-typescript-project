@@ -19,7 +19,6 @@ function App() {
           <Route path='/store' element={<Store/>}/>
           <Route path='/about' element={<About/>}/>
         </Routes>
-      
       </Container>
     </ShoppingCartProvider>
   )
