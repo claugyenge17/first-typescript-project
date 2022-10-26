@@ -1,35 +1,30 @@
-import { useMemo, useState } from "react"
+import { ChangeEvent, useEffect, useMemo, useState } from "react"
 import storeItems from '../data/items.json'
+import { useSearchProducts } from '../context/SearchProductsContext'
+import { Button } from "react-bootstrap"
 
-// type StoreItems = {
-//     id: number
-//     name: string
-//     price: number
-//     imgUrl: string
-//     toLowerCase: () => Lowercase<string>
-// }
-
-// type SearchItemProps = {
-//     keyword: string
-// }
 
 export function SearchItem(){
-    // const [items, setItems] = useState<StoreItems[]>([])
-    const [query, setQuery] = useState('')
-    
-    const filteredItems = useMemo(()=>{
-        return storeItems.filter(product=>{
-            return product.name.toLowerCase().includes(query.toLowerCase())
-        })
-    }, [query])
+  
+    // const [query, setQuery] = useState('')
+    const { getSearchedProductInfo } = useSearchProducts()
+    // const filteredItems = useMemo(()=>{
+    //     return storeItems.filter(product=>{
+    //         return product.name.toLowerCase().includes(query.toLowerCase())
+    //     })
+    // }, [query])
     // console.log(filteredItems)
+    
+    
     return (
         <>
             <input
-            value={query} 
-            onChange={e => setQuery(e.target.value)}
+            // value={query} 
+            // onChange={e => setQuery(e.target.value)}
+            onChange={e => getSearchedProductInfo(e.target.value)}
             placeholder='Search...' 
             type='search'/>
+            {/* <Button onClick={() => getSearchedProductInfo(query)}>Search</Button> */}
         </>
     )
 }
