@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { Routes, Route } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import { Home } from './pages/Home'
@@ -8,10 +8,12 @@ import { Navbar } from './components/Navbar'
 import { ShoppingCartProvider } from './context/ShoppingCartContext'
 import { SearchProductsProvider } from './context/SearchProductsContext'
 
+const queryClient = new QueryClient()
 
 function App() {
   return (
-    <ShoppingCartProvider>
+    <QueryClientProvider client={queryClient}>
+      <ShoppingCartProvider>
       <SearchProductsProvider>
         <Navbar/>
         <Container className='mb-4'>
@@ -23,6 +25,8 @@ function App() {
         </Container>
       </SearchProductsProvider>
     </ShoppingCartProvider>
+    </QueryClientProvider>
+    
   )
   
 }

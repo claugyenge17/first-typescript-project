@@ -1,6 +1,7 @@
 import { Button, Stack } from "react-bootstrap"
 import { useShoppingCart } from "../context/ShoppingCartContext"
-import storeItems from '../data/items.json'
+import { useGetProducts } from "../hooks/useGetProducts"
+// import storeItems from '../data/items.json'
 import { formatCurrency } from "../utilities/formatCurrency"
 
 type CartItemProps = {
@@ -10,7 +11,8 @@ type CartItemProps = {
 
 export function CartItem({ id, quantity }: CartItemProps) {
     const { removeFromCart } = useShoppingCart()
-    const item = storeItems.find(i => i.id === id)
+    const storeItems = useGetProducts()
+    const item = storeItems?.products.find(i => i.id === id)
     if(item === null || item === undefined) return null
 
     return (
@@ -19,7 +21,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
         gap={2}
         className='d-flex align-items-center'>
             <img 
-            src={item.imgUrl}
+            src={item.images[0]}
             style={{
                 width: '125px',
                 height: '75px',
@@ -27,7 +29,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
             }}/>
             <div className='me-auto'>
                 <div>
-                    {item.name}{' '}
+                    {item.title}{' '}
                     {quantity > 1 && <span className='text-muted' style={{fontSize:'.65rem'}}>x{quantity}</span>}
                 </div>
                 <div className='text-muted' style={{fontSize:'.75rem'}}

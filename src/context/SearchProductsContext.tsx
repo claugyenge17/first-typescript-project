@@ -1,21 +1,23 @@
-import { createContext, ReactNode, useContext, useMemo, useState } from "react"
-import { SearchItem } from "../components/SearchItem"
-import storeItems from '../data/items.json'
+import { createContext, ReactNode, useContext, useState } from "react"
+import { useGetProducts } from "../hooks/useGetProducts"
+// import storeItems from '../data/items.json'
 
 type SearchProductsProviderProps = {
     children: ReactNode
 }
 
-type SearchItem = {
+type SearchedItem = {
     id: number
-    name: string
+    // name: string
+    title: string
     price: number
-    imgUrl: string
+    images: string[]
+    // imgUrl: string
     // toLowerCase: () => Lowercase<string>
 }
 
 type SearchContext = {
-    filteredItems: SearchItem[]
+    filteredItems: SearchedItem[]
     isQueryMatch: string
     getSearchedProductInfo: (query: string) => void
 }
@@ -29,23 +31,30 @@ export function useSearchProducts() {
 }
 
 export function SearchProductsProvider( { children }: SearchProductsProviderProps ){
-    const [filteredItems, setFilteredItems] = useState<SearchItem[]>([])
+    const [filteredItems, setFilteredItems] = useState<SearchedItem[]>([])
     const [isQueryMatch, setIsQueryMatch] = useState('')
 
+    const storeItems = useGetProducts()
+
     function getSearchedProductInfo(query: string) {
-        setFilteredItems(
-            storeItems.filter(product =>{
-                const filteredProducts = product.name.toLowerCase().includes(query.toLowerCase())
-                if(!filteredProducts){
-                    setIsQueryMatch('YES')
-                    return filteredProducts
-                    // console.log(filteredProducts)
-                } else {
-                    setIsQueryMatch('NO')
-                    return []
-                }
-            })
-        ) 
+        if( storeItems != undefined ){
+            setFilteredItems(
+                storeItems.products.filter(product =>{
+                    const filteredProducts = product.title.toLowerCase().includes(query.toLowerCase())
+                    if(!filteredProducts){
+                        setIsQueryMatch('YES')
+                        return filteredProducts
+                        // console.log(filteredProducts)
+                    } else {
+                        setIsQueryMatch('NO')
+                        return []
+                    }
+                })
+            ) 
+        } else {
+            setFilteredItems([])
+        }
+        
     }
 
     return (
