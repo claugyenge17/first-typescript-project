@@ -56,7 +56,6 @@ export function ShoppingCartProvider( { children }: ShoppingCartProviderProps ){
                 })
             }
         })
-            
     }
 
      function decreaseCartQuantity(id: number){
@@ -73,7 +72,6 @@ export function ShoppingCartProvider( { children }: ShoppingCartProviderProps ){
                 })
             }
         })
-            
     }
 
     function removeFromCart(id: number){
@@ -85,6 +83,7 @@ export function ShoppingCartProvider( { children }: ShoppingCartProviderProps ){
     function clearCart(){
         setCartItems([])
     }
+    
     return (
         <ShoppingCartContext.Provider 
         value={{ 

@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { Button, Card } from "react-bootstrap"
 import { useShoppingCart } from "../context/ShoppingCartContext"
 import { formatCurrency } from "../utilities/formatCurrency"
@@ -12,7 +13,7 @@ type product = {
 export function StoreItem({ id, title, price, images }: product){
     const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart()
     const quantity = getItemQuantity(id);
-
+    
     return <Card className='h-100'>
         <Card.Img 
         variant='top' 
