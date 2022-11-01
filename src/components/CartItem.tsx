@@ -10,38 +10,67 @@ type CartItemProps = {
 }
 
 export function CartItem({ id, quantity }: CartItemProps) {
-    const { removeFromCart } = useShoppingCart()
+    const { increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart()
+
     const storeItems = useGetProducts()
     const item = storeItems?.products.find(i => i.id === id)
-    if(item === null || item === undefined) return null
+    if (item === null || item === undefined) return null
 
     return (
-        <Stack 
-        direction='horizontal' 
-        gap={2}
-        className='d-flex align-items-center'>
-            <img 
-            src={item.images[0]}
-            style={{
-                width: '125px',
-                height: '75px',
-                objectFit: 'cover'
-            }}/>
+        <Stack
+            direction='horizontal'
+            gap={3}
+            className='d-flex align-items-center border-top'>
+            <img
+                src={item.images[0]}
+                style={{
+                    // width: '125px',
+                    // height: '75px',
+                    marginTop: '1em',
+                    width: '140px',
+                    height: 'auto',
+                    objectFit: 'contain'
+                }} />
             <div className='me-auto'>
                 <div>
                     {item.title}{' '}
-                    {quantity > 1 && <span className='text-muted' style={{fontSize:'.65rem'}}>x{quantity}</span>}
+
+                    {/* {quantity > 1 &&  */}
+                    {quantity > 1 ? (
+                        <div className='d-flex align-items-center justify-content-between'>
+                            <Button
+                                className='rounded'
+                                size='sm'
+                                onClick={() => increaseCartQuantity(id)}
+                            >+</Button>
+                            <span className='text-muted' style={{ fontSize: '1em', fontWeight: '900' }}>x{quantity}</span>
+                            <Button
+                                className='rounded'
+                                size='sm'
+                                onClick={() => decreaseCartQuantity(id)}
+                            >-</Button>
+                        </div>
+                    ) : (
+                        <div className='d-flex align-items-center'>
+                            <Button
+                                className='rounded'
+                                size='sm'
+                                onClick={() => increaseCartQuantity(id)}>+</Button>
+                            <span className='text-muted' style={{ fontSize: '.6em', marginLeft:'.5em' }}>Add more quantity</span>
+                        </div>
+                    )
+                    }
                 </div>
-                <div className='text-muted' style={{fontSize:'.75rem'}}
+                <div className='text-muted' style={{ fontSize: '.75rem' }}
                 >
-                    {formatCurrency(item.price)}
+                    This product's individual price is {formatCurrency(item.price)}
                 </div>
             </div>
-            <div> {formatCurrency(item.price * quantity)} </div>
+            <div style={{ fontSize: '1em', fontWeight: '900' }}> {formatCurrency(item.price * quantity)} </div>
             <Button
-            variant='outline-danger'
-            size='sm'
-            onClick={() => removeFromCart(item.id)}
+                variant='outline-danger'
+                size='sm'
+                onClick={() => removeFromCart(item.id)}
             >
                 &times;
             </Button>

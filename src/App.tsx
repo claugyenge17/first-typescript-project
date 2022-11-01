@@ -7,24 +7,28 @@ import { About } from './pages/About'
 import { Navbar } from './components/Navbar'
 import { ShoppingCartProvider } from './context/ShoppingCartContext'
 import { SearchProductsProvider } from './context/SearchProductsContext'
+import { FavoritesProvider } from './context/FavoritesContext'
 
 const queryClient = new QueryClient()
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ShoppingCartProvider>
-      <SearchProductsProvider>
-        <Navbar/>
-        <Container className='mb-4'>
-          <Routes>
-            <Route path='/' element={<Home/>}/>
-            <Route path='/store' element={<Store/>}/>
-            <Route path='/about' element={<About/>}/>
-          </Routes>
-        </Container>
-      </SearchProductsProvider>
-    </ShoppingCartProvider>
+      <FavoritesProvider>
+        <ShoppingCartProvider>
+          <SearchProductsProvider>
+            <Navbar/>
+            <Container className='mb-4'>
+              <Routes>
+                <Route path='/' element={<Home/>}/>
+                <Route path='/store' element={<Store/>}/>
+                <Route path='/about' element={<About/>}/>
+              </Routes>
+            </Container>
+          </SearchProductsProvider>
+        </ShoppingCartProvider>
+      </FavoritesProvider>
+      
     </QueryClientProvider>
     
   )

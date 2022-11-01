@@ -18,9 +18,15 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
         show={isOpen} 
         placement='end'
         onHide={closeCart}
+        style={{width:'45%'}}
         >
             <Offcanvas.Header closeButton>
-                <Offcanvas.Title>Cart</Offcanvas.Title>
+                <Offcanvas.Title>
+                    <div className='d-flex flex-column'>
+                        <span>Cart</span>
+                        <span style={{ fontSize:'.75em'}}>Total number of items in the cart: <span style={{color:'green'}}>{cartQuantity}</span></span> 
+                    </div>
+                </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
                 <Stack gap={3}>
@@ -28,6 +34,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
                         <CartItem key={item.id} {...item}/>
                     ))}
                     <div className='d-flex flex-column'>
+                        <hr></hr>
                         <div className='ms-auto fw-bold fs-5'>
                             Total{' '}
                             {formatCurrency(cartItems.reduce((total, cartItem) => {
@@ -36,8 +43,9 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
                                 }, 0)
                             )}
                         </div>
+                        
                         {cartQuantity > 0 && (
-                            <div className="ms-auto">
+                            <div>
                                 <Button
                                 variant='danger'
                                 onClick={clearCart}
@@ -49,6 +57,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
                     </div>
                     
                 </Stack>
+                
             </Offcanvas.Body>
         </Offcanvas>
     )

@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { Button, Card } from "react-bootstrap"
+import { useFavorites } from "../context/FavoritesContext"
 import { useShoppingCart } from "../context/ShoppingCartContext"
 import { formatCurrency } from "../utilities/formatCurrency"
 
@@ -12,6 +13,7 @@ type product = {
 
 export function StoreItem({ id, title, price, images }: product){
     const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart } = useShoppingCart()
+    const { addToFavorites, removeFromFavorites } = useFavorites()
     const quantity = getItemQuantity(id);
     
     return <Card className='h-100'>
