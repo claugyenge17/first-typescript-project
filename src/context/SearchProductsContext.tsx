@@ -8,20 +8,17 @@ type SearchProductsProviderProps = {
 
 type SearchedItem = {
     id: number
-    // name: string
     title: string
     price: number
     images: string[]
-    // imgUrl: string
-    // toLowerCase: () => Lowercase<string>
 }
+
 
 type SearchContext = {
     filteredItems: SearchedItem[]
     isQueryMatch: string
     getSearchedProductInfo: (query: string) => void
 }
-
 
 
 const SearchProductsContext = createContext({} as SearchContext)
@@ -54,8 +51,8 @@ export function SearchProductsProvider( { children }: SearchProductsProviderProp
         } else {
             setFilteredItems([])
         }
-        
     }
+
 
     return (
         <SearchProductsContext.Provider 

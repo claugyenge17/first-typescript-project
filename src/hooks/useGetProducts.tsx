@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import axios, { AxiosRequestConfig } from 'axios'
+import axios from 'axios'
 
 const url = 'https://dummyjson.com/products?limit=100';
 
@@ -12,13 +11,8 @@ type product = {
 }
 
 type storeItemsProps = {
-    // id: number
-    // title: string
-    // price: number
-    // images: string[]
     products: product[]
 }
-
 
 export function useGetProducts() {
 
@@ -44,15 +38,5 @@ export function useGetProducts() {
             .finally(()=> setLoading(false))
     } 
     
-   
-    // const { data, error, isLoading } = useQuery('products', getStoreItems)
-    // if (error) return <div>Request Failed</div>;
-    // if (isLoading) return <div>Loading...</div>;
-    // if(data != null) {
-    //     // return JSON.parse(data)
-    //     return data
-    // }
-    // return JSON.parse(data)
-    // return [productsData, setProductsData] as [typeof productsData, typeof setProductsData]
   return productsData
 }

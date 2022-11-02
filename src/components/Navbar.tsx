@@ -1,12 +1,13 @@
-import { useState } from 'react'
 import { Button, Container, Nav, Navbar as NavbarBs } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
+import { useFavorites } from '../context/FavoritesContext'
 import { useShoppingCart } from '../context/ShoppingCartContext'
-import { SearchItem } from './SearchItem'
+
 
 
 export function Navbar(){
     const { openCart, cartQuantity } = useShoppingCart()
+    const { favoriteItems } = useFavorites()
 
     return (
         <NavbarBs sticky='top' className='bg-white shadow-sm mb-3'>
@@ -21,10 +22,31 @@ export function Navbar(){
                     <Nav.Link to="/about" as={NavLink}>
                         About
                     </Nav.Link>
+                    <Nav.Link to="/favorites" as={NavLink}>
+                        <span style={{position:'relative'}}>
+                            Favorites
+                            {favoriteItems.length > 0 && (
+                                <div className='rounded-circle bg-danger d-flex 
+                                justify-content-center 
+                                align-items-center'
+                                style={{
+                                    color:'white', 
+                                    width:'1.5rem', 
+                                    height:'1.5rem',
+                                    position:'absolute',
+                                    bottom:'65%',
+                                    left:'87.5%',
+                                    transform: 'translate(25%, 25%'}}
+                                >
+                                    {favoriteItems.length}
+                                </div>
+                            )}
+                        </span>
+                        
+                        
+                    </Nav.Link>
                 </Nav>
-                <Nav className='me-auto'> 
-                    <SearchItem/>
-                </Nav>
+                
                 {cartQuantity > 0 && (
                     <Button
                     onClick={openCart} 

@@ -43,7 +43,9 @@ export function StoreItem({ id, title, price, images }: product){
                         <div className='d-flex align-items-center justify-content-center'
                         style={{gap:'.5rem'}}
                         >
-                            <Button onClick={() => decreaseCartQuantity(id)}>-</Button>
+                            <Button 
+                            variant='danger'
+                            onClick={() => decreaseCartQuantity(id)}>-</Button>
                             <div>
                                 <span className='fs-3'>{quantity}</span> in cart
                             </div>
@@ -75,7 +77,7 @@ export function StoreItem({ id, title, price, images }: product){
                 <Button 
                 size='sm'
                 style={{border:'0', width:'3em', background:'transparent', display:'flex'}}
-                onClick={() => addToFavorites(id)}>
+                onClick={() => addToFavorites(id, title, price, images)}>
                     <svg version="1.1" id="Capa_1" x="0px" y="0px"
                     width="35px" height="35px"
                     viewBox="0 0 471.701 471.701">

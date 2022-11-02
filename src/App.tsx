@@ -8,27 +8,28 @@ import { Navbar } from './components/Navbar'
 import { ShoppingCartProvider } from './context/ShoppingCartContext'
 import { SearchProductsProvider } from './context/SearchProductsContext'
 import { FavoritesProvider } from './context/FavoritesContext'
+import { Favorites } from './pages/Favorites'
 
 const queryClient = new QueryClient()
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <FavoritesProvider>
+      <SearchProductsProvider>
+        <FavoritesProvider>
         <ShoppingCartProvider>
-          <SearchProductsProvider>
             <Navbar/>
             <Container className='mb-4'>
               <Routes>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/store' element={<Store/>}/>
                 <Route path='/about' element={<About/>}/>
+                <Route path='/favorites' element={<Favorites/>}/>
               </Routes>
             </Container>
-          </SearchProductsProvider>
         </ShoppingCartProvider>
       </FavoritesProvider>
-      
+      </SearchProductsProvider>
     </QueryClientProvider>
     
   )
