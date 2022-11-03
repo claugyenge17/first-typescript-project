@@ -4,12 +4,29 @@ import { StoreItem } from '../components/StoreItem'
 import { useSearchProducts } from '../context/SearchProductsContext'
 import { useGetProducts } from '../hooks/useGetProducts'
 import { SearchItem } from '../components/SearchItem'
+import { Pagination } from '../components/Pagination'
+import { useMemo, useState } from 'react'
 
+
+let PageSize = 12;
 
 export function Store() {
-    const { filteredItems, isQueryMatch } = useSearchProducts();
+    const [currentPage, setCurrentPage] = useState(1)
+    const { filteredItems, isQueryMatch } = useSearchProducts()
     const storeItems = useGetProducts()
+
+    const storeProducts = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * PageSize;
+        const lastPageIndex = firstPageIndex + PageSize;
+        return storeItems?.products.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage, storeItems])
     
+    const filteredStoreProducts = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * PageSize;
+        const lastPageIndex = firstPageIndex + PageSize;
+        return filteredItems.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage, filteredItems])
+
     return (
         <>
             <h1>Store</h1>
@@ -18,25 +35,45 @@ export function Store() {
             </div>
             <Row md={2} xs={1} lg={3} className='g-3'>
                 {
-                    
                 filteredItems.length === 0 && isQueryMatch === '' ? 
-                    storeItems?.products.map((item) => (
-                        <Col key={item.id}>
-                            <StoreItem {...item}/>
-                        </Col>
+                    // storeItems?.products.map((item) => (
+                    //     <Col key={item.id}>
+                    //         <StoreItem {...item}/>
+                    //     </Col>
+                    // ))
+                    storeProducts?.map((item) => (
+                            <Col key={item.id}>
+                                <StoreItem {...item}/>
+                            </Col>
                     ))
                 :
                     filteredItems.length === 0 ?
                         <div>No results found!</div>
                     :
-                        filteredItems.map((item) => (
+                        // filteredItems.map((item) => (
+                        //     <Col key={item.id}>
+                        //         <StoreItem {...item}/>
+                        //     </Col>
+                        // ))
+                        filteredStoreProducts.map((item) => (
                             <Col key={item.id}>
                                 <StoreItem {...item}/>
                             </Col>
                         ))
-                    
                 }
             </Row>
+            <div className='d-flex mt-3 align-items-center justify-content-center'>
+                <Pagination
+                className="pagination-bar"
+                currentPage={currentPage}
+                totalCount={100}
+                pageSize={PageSize}
+                onPageChange={page => setCurrentPage(page)}
+                siblingCount={1}
+                pageNumber={1}
+                />
+            </div>
+            
         </>
     )
 }

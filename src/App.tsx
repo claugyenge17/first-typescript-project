@@ -10,11 +10,13 @@ import { SearchProductsProvider } from './context/SearchProductsContext'
 import { FavoritesProvider } from './context/FavoritesContext'
 import { Favorites } from './pages/Favorites'
 
+
+
 const queryClient = new QueryClient()
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
       <SearchProductsProvider>
         <FavoritesProvider>
         <ShoppingCartProvider>
@@ -28,12 +30,10 @@ function App() {
               </Routes>
             </Container>
         </ShoppingCartProvider>
-      </FavoritesProvider>
+        </FavoritesProvider>
       </SearchProductsProvider>
     </QueryClientProvider>
-    
   )
-  
 }
 
 export default App
