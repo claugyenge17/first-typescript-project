@@ -35,7 +35,6 @@ export function CartItem({ id, quantity }: CartItemProps) {
                 <div>
                     {item.title}{' '}
 
-                    {/* {quantity > 1 &&  */}
                     {quantity > 1 ? (
                         <div className='d-flex align-items-center justify-content-between'>
                             <Button

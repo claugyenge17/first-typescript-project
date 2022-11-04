@@ -11,7 +11,6 @@ export function SearchItem(){
                 height:'2.5em',
                 width: '30%'
             }}
-            
             onChange={e => getSearchedProductInfo(e.target.value)}
             placeholder='Search through products...' 
             type='search'/>

@@ -30,7 +30,6 @@ export function Pagination({
   });
 
   // If there are less than 2 times in pagination range we shall not render the component
-
   if(paginationRange){
     if (currentPage === 0 || paginationRange.length < 2) {
         return null;

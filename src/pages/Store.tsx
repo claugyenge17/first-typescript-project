@@ -62,17 +62,34 @@ export function Store() {
                         ))
                 }
             </Row>
-            <div className='d-flex mt-3 align-items-center justify-content-center'>
-                <Pagination
-                className="pagination-bar"
-                currentPage={currentPage}
-                totalCount={100}
-                pageSize={PageSize}
-                onPageChange={page => setCurrentPage(page)}
-                siblingCount={1}
-                pageNumber={1}
-                />
-            </div>
+            {
+                filteredItems.length === 0 && isQueryMatch === '' ? (
+                <div className='d-flex mt-3 align-items-center justify-content-center'>
+                    <Pagination
+                    className="pagination-bar"
+                    currentPage={currentPage}
+                    totalCount={Number(storeItems?.products.length)}
+                    pageSize={PageSize}
+                    onPageChange={page => setCurrentPage(page)}
+                    siblingCount={1}
+                    pageNumber={1}
+                    />
+                </div>
+                ) : (
+                    <div className='d-flex mt-3 align-items-center justify-content-center'>
+                        <Pagination
+                        className="pagination-bar"
+                        currentPage={currentPage}
+                        totalCount={filteredItems.length}
+                        pageSize={PageSize}
+                        onPageChange={page => setCurrentPage(page)}
+                        siblingCount={1}
+                        pageNumber={1}
+                        />
+                    </div>
+                )
+            }
+            
             
         </>
     )

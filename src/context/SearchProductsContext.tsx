@@ -53,7 +53,6 @@ export function SearchProductsProvider( { children }: SearchProductsProviderProp
         }
     }
 
-
     return (
         <SearchProductsContext.Provider 
         value={{

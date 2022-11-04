@@ -23,7 +23,6 @@ type FavoritesContext = {
     getSearchedFavProductInfo: (query: string) => void
 }
 
-
 const FavoritesContext = createContext({} as FavoritesContext)
 
 export function useFavorites() {
@@ -56,7 +55,6 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
         }
     }
 
-
     // function addToFavorites(id: number){
     //     if(storeItems?.products.find(item => item.id === id) == null){
     //         setFavoriteItems([...favoriteItems, { id }])
@@ -71,6 +69,7 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
     //     }
        
     // }
+
     function addToFavorites(id: number, title: string, price: number, images: string[]){
         setFavoriteItems(currItems => {
             if(currItems.find(item => item.id === id) == null){

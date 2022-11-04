@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { Button, Card } from "react-bootstrap"
 import { useFavorites } from "../context/FavoritesContext"
 import { useShoppingCart } from "../context/ShoppingCartContext"
