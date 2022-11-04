@@ -76,6 +76,7 @@ limitele de pagină, adică 1 și totalPageCount. Prin urmare, folosim leftSibli
       return [firstPageIndex, DOTS, ...rightRange];
     }
      
+ 
     
 // Cazul 4: Sunt puncte atat in dreapta cat si in stanga
     if (shouldShowLeftDots && shouldShowRightDots) {
