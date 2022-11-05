@@ -5,6 +5,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "webpack-dev-server --host 0.0.0.0 --disable-host-check --open-page first-typescript-project",
     "dev": "vite",
     "build": "tsc && vite build",
     "predeploy" : "npm run build",
