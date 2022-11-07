@@ -34,20 +34,35 @@ export function SearchProductsProvider( { children }: SearchProductsProviderProp
     const storeItems = useGetProducts()
 
     function getSearchedProductInfo(query: string) {
-        if( storeItems != undefined ){
-            setFilteredItems(
-                storeItems.products.filter(product =>{
-                    const filteredProducts = product.title.toLowerCase().includes(query.toLowerCase())
-                    if(!filteredProducts){
-                        setIsQueryMatch('YES')
-                        return filteredProducts
-                        // console.log(filteredProducts)
-                    } else {
-                        setIsQueryMatch('NO')
-                        return []
-                    }
-                })
-            ) 
+        if( storeItems !== undefined ){
+            const filteredProducts = storeItems.products.filter((products) =>products.title.toLowerCase().includes(query.toLowerCase())).map((item)=>item)
+            console.log(filteredProducts)
+            if(filteredProducts.length > 0 && query.length > 0) {
+                setIsQueryMatch('YES')
+                return setFilteredItems(filteredProducts)
+            } else if(filteredProducts.length === 0 && query.length > 0) {
+                setIsQueryMatch('NO')
+                return setFilteredItems([])
+            } else {
+                setIsQueryMatch('')
+                return setFilteredItems([])
+            }
+            // setFilteredItems(
+
+                // storeItems.products.filter(product =>{
+                //     const filteredProducts = product.title.toLowerCase().includes(query.toLowerCase())
+                //     // console.log(filteredProducts)
+                //     return setIsQueryMatch('YES'), filteredProducts
+                //     // if(filteredProducts){
+                //     //     setIsQueryMatch('YES')
+                //     //     // console.log(!filteredProducts)
+                //     //     return filteredProducts
+                //     // } else {
+                //     //     setIsQueryMatch('NO')
+                //     //     return []
+                //     // }
+                // })
+            // ) 
         } else {
             setFilteredItems([])
         }

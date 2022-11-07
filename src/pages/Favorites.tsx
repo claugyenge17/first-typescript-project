@@ -10,6 +10,7 @@ let PageSize = 12;
 export function Favorites() {
     const { favoriteItems, filteredFavItems, isQueryMatch, clearFavorites } = useFavorites()
     const [currentPage, setCurrentPage] = useState(1)
+    const [filteredFavCurrentPage, setFilteredFavCurrentPage] = useState(1)
 
     const filteredStoreProducts = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
@@ -20,10 +21,10 @@ export function Favorites() {
     // console.log(filteredStoreProducts)
 
     const filteredStoreFavProducts = useMemo(() => {
-        const firstPageIndex = (currentPage - 1) * PageSize;
+        const firstPageIndex = (filteredFavCurrentPage - 1) * PageSize;
         const lastPageIndex = firstPageIndex + PageSize;
         return filteredFavItems.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage, filteredFavItems])
+    }, [filteredFavCurrentPage, filteredFavItems])
     // console.log(favoriteItems.length)
     
     useEffect(() => {
@@ -57,15 +58,22 @@ export function Favorites() {
                                     </Col>
                                 ))
                             :
-                                filteredFavItems.length === 0 ?
-                                    <div>No results found!</div>
-                                :
-                                
-                                    filteredStoreFavProducts.map((item) => (
+                                isQueryMatch === 'NO' ?
+                                    filteredStoreProducts.map((item) => (
                                         <Col key={item.id}>
                                             <FavoriteItem {...item}/>
                                         </Col>
                                     ))
+                                :
+                                    filteredFavItems.length === 0 ?
+                                        <div>No results found!</div>
+                                    :
+                                    
+                                        filteredStoreFavProducts.map((item) => (
+                                            <Col key={item.id}>
+                                                <FavoriteItem {...item}/>
+                                            </Col>
+                                        ))
                         }
                     </Row>
                     {
@@ -81,14 +89,28 @@ export function Favorites() {
                                 pageNumber={1}
                                 />
                             </div>
-                        ) : (
+                        ) : 
+                            isQueryMatch === 'NO' ? (
+                                <div className='d-flex mt-3 align-items-center justify-content-center'>
+                                    <Pagination
+                                    className="pagination-bar"
+                                    currentPage={currentPage}
+                                    totalCount={favoriteItems.length}
+                                    pageSize={PageSize}
+                                    onPageChange={page => setCurrentPage(page)}
+                                    siblingCount={1}
+                                    pageNumber={1}
+                                    />
+                                </div>
+                        ) :
+                        (
                             <div className='d-flex mt-3 align-items-center justify-content-center'>
                                 <Pagination
                                 className="pagination-bar"
-                                currentPage={currentPage}
+                                currentPage={filteredFavCurrentPage}
                                 totalCount={filteredFavItems.length}
                                 pageSize={PageSize}
-                                onPageChange={page => setCurrentPage(page)}
+                                onPageChange={page => setFilteredFavCurrentPage(page)}
                                 siblingCount={1}
                                 pageNumber={1}
                                 />

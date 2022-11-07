@@ -5,15 +5,21 @@ import { useSearchProducts } from '../context/SearchProductsContext'
 import { useGetProducts } from '../hooks/useGetProducts'
 import { SearchItem } from '../components/SearchItem'
 import { Pagination } from '../components/Pagination'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 
 let PageSize = 12;
 
 export function Store() {
     const [currentPage, setCurrentPage] = useState(1)
+    const [filteredCurrentPage, setFilteredCurrentPage] = useState(1)
     const { filteredItems, isQueryMatch } = useSearchProducts()
     const storeItems = useGetProducts()
+
+    console.log(isQueryMatch)
+    console.log(filteredItems)
+    console.log('Current page', currentPage)
+    console.log('Filtered current page', filteredCurrentPage)
 
     const storeProducts = useMemo(() => {
         const firstPageIndex = (currentPage - 1) * PageSize;
@@ -22,72 +28,121 @@ export function Store() {
     }, [currentPage, storeItems])
     
     const filteredStoreProducts = useMemo(() => {
-        const firstPageIndex = (currentPage - 1) * PageSize;
+        const firstPageIndex = (filteredCurrentPage - 1) * PageSize
         const lastPageIndex = firstPageIndex + PageSize;
         return filteredItems.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage, filteredItems])
+    }, [filteredCurrentPage, filteredItems])
+
+
+    useEffect(() => {
+        if(filteredItems.length === 0 && isQueryMatch === 'NO'){
+            setFilteredCurrentPage(1)
+        }
+        if(filteredItems.length === 0 && isQueryMatch === ''){
+            setFilteredCurrentPage(1)
+        }
+    })
 
     return (
         <>
             <h1>Store</h1>
-            <div style={{marginBottom:'1em'}}>
+            <div style={{marginBottom:'1em', display:'flex', justifyContent:'center'}}>
                 <SearchItem/>
             </div>
             <Row md={2} xs={1} lg={3} className='g-3'>
                 {
-                filteredItems.length === 0 && isQueryMatch === '' ? 
-                    // storeItems?.products.map((item) => (
-                    //     <Col key={item.id}>
-                    //         <StoreItem {...item}/>
-                    //     </Col>
-                    // ))
-                    storeProducts?.map((item) => (
+                    filteredItems.length === 0 && isQueryMatch === '' ?
+                        storeProducts?.map((item) => (
                             <Col key={item.id}>
                                 <StoreItem {...item}/>
                             </Col>
-                    ))
-                :
-                    filteredItems.length === 0 ?
-                        <div>No results found!</div>
+                        ))
                     :
-                        // filteredItems.map((item) => (
+                    filteredItems.length === 0 && isQueryMatch === 'NO' ? 
+                        // storeProducts?.map((item) => (
                         //     <Col key={item.id}>
                         //         <StoreItem {...item}/>
                         //     </Col>
                         // ))
+                        <div>No results found!</div>
+                    :
+                    filteredItems.length > 0 && isQueryMatch === 'YES' ?
                         filteredStoreProducts.map((item) => (
                             <Col key={item.id}>
                                 <StoreItem {...item}/>
                             </Col>
                         ))
+                    :
+                    filteredItems.length > 0 && isQueryMatch === '' ?
+                        filteredStoreProducts.map((item) => (
+                            <Col key={item.id}>
+                                <StoreItem {...item}/>
+                            </Col>
+                        ))
+                    :
+                    // filteredItems.length === 0 ?
+                    //     <div>No results found!</div>
+                    // :
+                    filteredStoreProducts.map((item) => (
+                        <Col key={item.id}>
+                            <StoreItem {...item}/>
+                        </Col>
+                    ))
                 }
             </Row>
             {
                 filteredItems.length === 0 && isQueryMatch === '' ? (
-                <div className='d-flex mt-3 align-items-center justify-content-center'>
-                    <Pagination
-                    className="pagination-bar"
-                    currentPage={currentPage}
-                    totalCount={Number(storeItems?.products.length)}
-                    pageSize={PageSize}
-                    onPageChange={page => setCurrentPage(page)}
-                    siblingCount={1}
-                    pageNumber={1}
-                    />
-                </div>
-                ) : (
                     <div className='d-flex mt-3 align-items-center justify-content-center'>
                         <Pagination
                         className="pagination-bar"
                         currentPage={currentPage}
-                        totalCount={filteredItems.length}
+                        totalCount={Number(storeItems?.products.length)}
                         pageSize={PageSize}
                         onPageChange={page => setCurrentPage(page)}
                         siblingCount={1}
                         pageNumber={1}
                         />
                     </div>
-                )
+                ) : 
+                filteredItems.length === 0 && isQueryMatch === 'NO' ? (
+                    <div className='d-flex mt-3 align-items-center justify-content-center'>
+                        <Pagination
+                        className="pagination-bar"
+                        currentPage={filteredCurrentPage}
+                        totalCount={filteredItems.length}
+                        pageSize={PageSize}
+                        onPageChange={page => setFilteredCurrentPage(page)}
+                        siblingCount={1}
+                        pageNumber={1}
+                        />
+                    </div>
+                ) :
+                filteredItems.length > 0 && isQueryMatch === 'YES' ? (
+                    <div className='d-flex mt-3 align-items-center justify-content-center'>
+                        <Pagination
+                        className="pagination-bar"
+                        currentPage={filteredCurrentPage}
+                        totalCount={filteredItems.length}
+                        pageSize={PageSize}
+                        onPageChange={page => setFilteredCurrentPage(page)}
+                        siblingCount={1}
+                        pageNumber={1}
+                        />
+                    </div>
+                ) :
+                        (
+                            <div className='d-flex mt-3 align-items-center justify-content-center'>
+                                <Pagination
+                                className="pagination-bar"
+                                currentPage={filteredCurrentPage}
+                                totalCount={filteredItems.length}
+                                pageSize={PageSize}
+                                onPageChange={page => setFilteredCurrentPage(page)}
+                                siblingCount={1}
+                                pageNumber={1}
+                                />
+                            </div>
+                        )
             }
             
             
