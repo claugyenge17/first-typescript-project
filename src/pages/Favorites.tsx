@@ -58,22 +58,36 @@ export function Favorites() {
                                     </Col>
                                 ))
                             :
-                                isQueryMatch === 'NO' ?
-                                    filteredStoreProducts.map((item) => (
-                                        <Col key={item.id}>
-                                            <FavoriteItem {...item}/>
-                                        </Col>
-                                    ))
-                                :
-                                    filteredFavItems.length === 0 ?
-                                        <div>No results found!</div>
-                                    :
-                                    
-                                        filteredStoreFavProducts.map((item) => (
-                                            <Col key={item.id}>
-                                                <FavoriteItem {...item}/>
-                                            </Col>
-                                        ))
+                            filteredFavItems.length === 0 && isQueryMatch === 'NO' ?
+                                // filteredStoreProducts.map((item) => (
+                                //     <Col key={item.id}>
+                                //         <FavoriteItem {...item}/>
+                                //     </Col>
+                                // ))
+                                <div>No results found!</div>
+                            :
+                            filteredFavItems.length > 0 && isQueryMatch === 'YES' ?
+                                filteredStoreFavProducts.map((item)=>(
+                                    <Col key={item.id}>
+                                        <FavoriteItem {...item}/>
+                                    </Col>
+                                ))
+                                // filteredFavItems.length === 0 ?
+                                //     <div>No results found!</div>
+                                // :
+                            :
+                            filteredFavItems.length > 0 && isQueryMatch === '' ?
+                                filteredStoreFavProducts.map((item)=>(
+                                    <Col key={item.id}>
+                                        <FavoriteItem {...item}/>
+                                    </Col>
+                                ))
+                            :
+                            filteredStoreFavProducts.map((item) => (
+                                <Col key={item.id}>
+                                    <FavoriteItem {...item}/>
+                                </Col>
+                            ))
                         }
                     </Row>
                     {
@@ -90,14 +104,27 @@ export function Favorites() {
                                 />
                             </div>
                         ) : 
-                            isQueryMatch === 'NO' ? (
+                            filteredFavItems.length === 0 && isQueryMatch === 'NO' ? (
                                 <div className='d-flex mt-3 align-items-center justify-content-center'>
                                     <Pagination
                                     className="pagination-bar"
-                                    currentPage={currentPage}
-                                    totalCount={favoriteItems.length}
+                                    currentPage={filteredFavCurrentPage}
+                                    totalCount={filteredFavItems.length}
                                     pageSize={PageSize}
-                                    onPageChange={page => setCurrentPage(page)}
+                                    onPageChange={page => setFilteredFavCurrentPage(page)}
+                                    siblingCount={1}
+                                    pageNumber={1}
+                                    />
+                                </div>
+                        ) :
+                        filteredFavItems.length > 0 && isQueryMatch === 'YES' ? (
+                                <div className='d-flex mt-3 align-items-center justify-content-center'>
+                                    <Pagination
+                                    className="pagination-bar"
+                                    currentPage={filteredFavCurrentPage}
+                                    totalCount={filteredFavItems.length}
+                                    pageSize={PageSize}
+                                    onPageChange={page => setFilteredFavCurrentPage(page)}
                                     siblingCount={1}
                                     pageNumber={1}
                                     />

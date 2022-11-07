@@ -130,19 +130,19 @@ export function Store() {
                         />
                     </div>
                 ) :
-                        (
-                            <div className='d-flex mt-3 align-items-center justify-content-center'>
-                                <Pagination
-                                className="pagination-bar"
-                                currentPage={filteredCurrentPage}
-                                totalCount={filteredItems.length}
-                                pageSize={PageSize}
-                                onPageChange={page => setFilteredCurrentPage(page)}
-                                siblingCount={1}
-                                pageNumber={1}
-                                />
-                            </div>
-                        )
+                (
+                    <div className='d-flex mt-3 align-items-center justify-content-center'>
+                        <Pagination
+                        className="pagination-bar"
+                        currentPage={filteredCurrentPage}
+                        totalCount={filteredItems.length}
+                        pageSize={PageSize}
+                        onPageChange={page => setFilteredCurrentPage(page)}
+                        siblingCount={1}
+                        pageNumber={1}
+                        />
+                    </div>
+                )
             }
             
             

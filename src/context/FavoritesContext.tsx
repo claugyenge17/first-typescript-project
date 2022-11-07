@@ -35,21 +35,33 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
     const [isQueryMatch, setIsQueryMatch] = useState('')
     const storeItems = useGetProducts()
     
-    function getSearchedFavProductInfo(query: string) {
+    function getSearchedFavProductInfo(query: string){
         if( storeItems != undefined ){
-            setFilteredFavItems(
-                favoriteItems.filter(product =>{
-                    const filteredProducts = product.title.toLowerCase().includes(query.toLowerCase())
-                    if(!filteredProducts){
-                        setIsQueryMatch('YES')
-                        return filteredProducts
-                        // console.log(filteredProducts)
-                    } else {
-                        setIsQueryMatch('NO')
-                        return []
-                    }
-                })
-            ) 
+             const filteredProducts = favoriteItems.filter((products) =>products.title.toLowerCase().includes(query.toLowerCase())).map((item)=>item)
+            // console.log(filteredProducts)
+            if(filteredProducts.length > 0 && query.length > 0) {
+                setIsQueryMatch('YES')
+                return setFilteredFavItems(filteredProducts)
+            } else if(filteredProducts.length === 0 && query.length > 0) {
+                setIsQueryMatch('NO')
+                return setFilteredFavItems([])
+            } else {
+                setIsQueryMatch('')
+                return setFilteredFavItems([])
+            }
+            // setFilteredFavItems(
+            //     favoriteItems.filter(product =>{
+            //         const filteredProducts = product.title.toLowerCase().includes(query.toLowerCase())
+            //         if(!filteredProducts){
+            //             setIsQueryMatch('YES')
+            //             return filteredProducts
+            //             // console.log(filteredProducts)
+            //         } else {
+            //             setIsQueryMatch('NO')
+            //             return []
+            //         }
+            //     })
+            // ) 
         } else {
             setFilteredFavItems([])
         }
