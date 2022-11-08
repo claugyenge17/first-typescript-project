@@ -59,11 +59,6 @@ export function Favorites() {
                                 ))
                             :
                             filteredFavItems.length === 0 && isQueryMatch === 'NO' ?
-                                // filteredStoreProducts.map((item) => (
-                                //     <Col key={item.id}>
-                                //         <FavoriteItem {...item}/>
-                                //     </Col>
-                                // ))
                                 <div>No results found!</div>
                             :
                             filteredFavItems.length > 0 && isQueryMatch === 'YES' ?
@@ -72,9 +67,6 @@ export function Favorites() {
                                         <FavoriteItem {...item}/>
                                     </Col>
                                 ))
-                                // filteredFavItems.length === 0 ?
-                                //     <div>No results found!</div>
-                                // :
                             :
                             filteredFavItems.length > 0 && isQueryMatch === '' ?
                                 filteredStoreFavProducts.map((item)=>(
@@ -145,7 +137,6 @@ export function Favorites() {
                         )
                     }
                 </div>
-                
             ):(
                 <Card className='h-100'>
                     <Card.Body>

@@ -1,6 +1,5 @@
 import { useFavorites } from "../context/FavoritesContext"
 
-
 export function FavoriteSearchItem(){
   
     const { getSearchedFavProductInfo } = useFavorites()

@@ -49,47 +49,6 @@ export function Store() {
             <div style={{marginBottom:'1em', display:'flex', justifyContent:'center'}}>
                 <SearchItem/>
             </div>
-            <Row md={2} xs={1} lg={3} className='g-3'>
-                {
-                    filteredItems.length === 0 && isQueryMatch === '' ?
-                        storeProducts?.map((item) => (
-                            <Col key={item.id}>
-                                <StoreItem {...item}/>
-                            </Col>
-                        ))
-                    :
-                    filteredItems.length === 0 && isQueryMatch === 'NO' ? 
-                        // storeProducts?.map((item) => (
-                        //     <Col key={item.id}>
-                        //         <StoreItem {...item}/>
-                        //     </Col>
-                        // ))
-                        <div>No results found!</div>
-                    :
-                    filteredItems.length > 0 && isQueryMatch === 'YES' ?
-                        filteredStoreProducts.map((item) => (
-                            <Col key={item.id}>
-                                <StoreItem {...item}/>
-                            </Col>
-                        ))
-                    :
-                    filteredItems.length > 0 && isQueryMatch === '' ?
-                        filteredStoreProducts.map((item) => (
-                            <Col key={item.id}>
-                                <StoreItem {...item}/>
-                            </Col>
-                        ))
-                    :
-                    // filteredItems.length === 0 ?
-                    //     <div>No results found!</div>
-                    // :
-                    filteredStoreProducts.map((item) => (
-                        <Col key={item.id}>
-                            <StoreItem {...item}/>
-                        </Col>
-                    ))
-                }
-            </Row>
             {
                 filteredItems.length === 0 && isQueryMatch === '' ? (
                     <div className='d-flex mt-3 align-items-center justify-content-center'>
@@ -144,8 +103,39 @@ export function Store() {
                     </div>
                 )
             }
-            
-            
+            <Row md={2} xs={1} lg={3} className='g-3'>
+                {
+                    filteredItems.length === 0 && isQueryMatch === '' ?
+                        storeProducts?.map((item) => (
+                            <Col key={item.id}>
+                                <StoreItem {...item}/>
+                            </Col>
+                        ))
+                    :
+                    filteredItems.length === 0 && isQueryMatch === 'NO' ? 
+                        <div>No results found!</div>
+                    :
+                    filteredItems.length > 0 && isQueryMatch === 'YES' ?
+                        filteredStoreProducts.map((item) => (
+                            <Col key={item.id}>
+                                <StoreItem {...item}/>
+                            </Col>
+                        ))
+                    :
+                    filteredItems.length > 0 && isQueryMatch === '' ?
+                        filteredStoreProducts.map((item) => (
+                            <Col key={item.id}>
+                                <StoreItem {...item}/>
+                            </Col>
+                        ))
+                    :
+                    filteredStoreProducts.map((item) => (
+                        <Col key={item.id}>
+                            <StoreItem {...item}/>
+                        </Col>
+                    ))
+                }
+            </Row>
         </>
     )
 }

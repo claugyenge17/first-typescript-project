@@ -13,7 +13,6 @@ type usePaginationProps = {
     pageSize: number
     siblingCount: number
     currentPage: number
-    // paginationRange: number[]
 }
 
 export function usePagination({
@@ -37,7 +36,7 @@ export function usePagination({
         return range(1, totalPageCount);
     }
 	
-    
+  
 // Calculeaza indexul paginii din stanga si dreapta si asigura ca este in raza 1 si totalPageCount
     const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
     const rightSiblingIndex = Math.min(
@@ -55,7 +54,6 @@ limitele de pagină, adică 1 și totalPageCount. Prin urmare, folosim leftSibli
     const firstPageIndex = 1;
     const lastPageIndex = totalPageCount;
 
-   
 
 // Cazul 2: Nu sunt puncte in stanga, doar in dreapta 
     if (!shouldShowLeftDots && shouldShowRightDots) {
@@ -77,7 +75,6 @@ limitele de pagină, adică 1 și totalPageCount. Prin urmare, folosim leftSibli
       return [firstPageIndex, DOTS, ...rightRange];
     }
      
- 
     
 // Cazul 4: Sunt puncte atat in dreapta cat si in stanga
     if (shouldShowLeftDots && shouldShowRightDots) {

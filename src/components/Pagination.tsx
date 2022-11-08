@@ -21,7 +21,6 @@ export function Pagination({
     className
 }: paginationProps) {
 
-
   const paginationRange = usePagination({
     currentPage,
     totalCount,
@@ -36,7 +35,6 @@ export function Pagination({
     }
   }
   
-
   const onNext = () => {
     onPageChange(currentPage + 1);
   };
@@ -45,9 +43,7 @@ export function Pagination({
     onPageChange(currentPage - 1);
   };
 
-  
     let lastPage = paginationRange?.[paginationRange.length - 1];
-
 
   return (
     <ul
@@ -63,8 +59,7 @@ export function Pagination({
         <div className="arrow left" />
       </li>
       {paginationRange?.map((pageNumber, index) => {
-        
-        
+
         if (pageNumber === DOTS) {
           return <li className="pagination-item dots">&#8230;</li>;
         }

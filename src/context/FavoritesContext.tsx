@@ -49,38 +49,11 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
                 setIsQueryMatch('')
                 return setFilteredFavItems([])
             }
-            // setFilteredFavItems(
-            //     favoriteItems.filter(product =>{
-            //         const filteredProducts = product.title.toLowerCase().includes(query.toLowerCase())
-            //         if(!filteredProducts){
-            //             setIsQueryMatch('YES')
-            //             return filteredProducts
-            //             // console.log(filteredProducts)
-            //         } else {
-            //             setIsQueryMatch('NO')
-            //             return []
-            //         }
-            //     })
-            // ) 
         } else {
             setFilteredFavItems([])
         }
     }
-
-    // function addToFavorites(id: number){
-    //     if(storeItems?.products.find(item => item.id === id) == null){
-    //         setFavoriteItems([...favoriteItems, { id }])
-    //     } else {
-    //         return favoriteItems.map(item => {
-    //             if(item.id === id){
-    //                 return {...item}
-    //             } else {
-    //                 return item
-    //             }
-    //         })
-    //     }
-       
-    // }
+    
 
     function addToFavorites(id: number, title: string, price: number, images: string[]){
         setFavoriteItems(currItems => {

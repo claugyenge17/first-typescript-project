@@ -43,7 +43,6 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
                                 }, 0)
                             )}
                         </div>
-                        
                         {cartQuantity > 0 && (
                             <div>
                                 <Button
@@ -55,9 +54,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
                             </div>
                         )}
                     </div>
-                    
                 </Stack>
-                
             </Offcanvas.Body>
         </Offcanvas>
     )

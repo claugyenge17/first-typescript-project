@@ -1,6 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react"
 import { useGetProducts } from "../hooks/useGetProducts"
-// import storeItems from '../data/items.json'
 
 type SearchProductsProviderProps = {
     children: ReactNode
@@ -13,13 +12,11 @@ type SearchedItem = {
     images: string[]
 }
 
-
 type SearchContext = {
     filteredItems: SearchedItem[]
     isQueryMatch: string
     getSearchedProductInfo: (query: string) => void
 }
-
 
 const SearchProductsContext = createContext({} as SearchContext)
 
@@ -47,22 +44,6 @@ export function SearchProductsProvider( { children }: SearchProductsProviderProp
                 setIsQueryMatch('')
                 return setFilteredItems([])
             }
-            // setFilteredItems(
-
-                // storeItems.products.filter(product =>{
-                //     const filteredProducts = product.title.toLowerCase().includes(query.toLowerCase())
-                //     // console.log(filteredProducts)
-                //     return setIsQueryMatch('YES'), filteredProducts
-                //     // if(filteredProducts){
-                //     //     setIsQueryMatch('YES')
-                //     //     // console.log(!filteredProducts)
-                //     //     return filteredProducts
-                //     // } else {
-                //     //     setIsQueryMatch('NO')
-                //     //     return []
-                //     // }
-                // })
-            // ) 
         } else {
             setFilteredItems([])
         }

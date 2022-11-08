@@ -11,7 +11,6 @@ import { FavoritesProvider } from './context/FavoritesContext'
 import { Favorites } from './pages/Favorites'
 
 
-
 const queryClient = new QueryClient()
 
 function App() {
