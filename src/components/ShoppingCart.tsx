@@ -18,7 +18,10 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
         show={isOpen} 
         placement='end'
         onHide={closeCart}
-        style={{width:'45%'}}
+        style={{
+            width:'37em',
+            zIndex:'10001'
+        }}
         >
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title>

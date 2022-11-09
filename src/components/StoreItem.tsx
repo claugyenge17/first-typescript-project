@@ -54,7 +54,7 @@ export function StoreItem({ id, title, price, images }: product){
                        variant='danger' 
                        size='sm'
                        onClick={() => removeFromCart(id)}
-                       >Remove</Button>
+                       >Remove from cart</Button>
                     </div>}
             </div>
             {isFavorite ? (

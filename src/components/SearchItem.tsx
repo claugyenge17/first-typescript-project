@@ -9,7 +9,7 @@ export function SearchItem(){
             className='border-primary rounded'
             style={{
                 height:'2.5em',
-                width: '30%'
+                width: '20em',
             }}
             onChange={e => getSearchedProductInfo(e.target.value)}
             placeholder='Search through products...' 

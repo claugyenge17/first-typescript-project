@@ -46,7 +46,11 @@ export function Favorites() {
                     onClick={()=>clearFavorites()}
                     >Clear favorites
                     </Button>
-                    <div style={{marginBottom:'1em'}}>
+                    <div style={{
+                        marginBottom:'1em',
+                        display:'flex', 
+                        justifyContent:'center'
+                    }}>
                         <FavoriteSearchItem/>
                     </div>
                     <Row md={2} xs={1} lg={3} className='g-3'>

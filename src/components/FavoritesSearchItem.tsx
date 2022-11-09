@@ -9,7 +9,7 @@ export function FavoriteSearchItem(){
             className='border-primary rounded'
             style={{
                 height:'2.5em',
-                width: '30%'
+                width: '20em',
             }}
             onChange={e => getSearchedFavProductInfo(e.target.value)}
             placeholder='Search through favorites...' 

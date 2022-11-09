@@ -43,7 +43,7 @@ export function Pagination({
     onPageChange(currentPage - 1);
   };
 
-    let lastPage = paginationRange?.[paginationRange.length - 1];
+  let lastPage = paginationRange?.[paginationRange.length - 1];
 
   return (
     <ul
