@@ -27,7 +27,7 @@ export function ShoppingCart({ isOpen }: ShoppingCartProps) {
                 <Offcanvas.Title>
                     <div className='d-flex flex-column'>
                         <span>Cart</span>
-                        <span style={{ fontSize:'.75em'}}>Total number of items in the cart: <span style={{color:'green'}}>{cartQuantity}</span></span> 
+                        <span style={{ fontSize:'.75em'}}>Total number of items in the cart at the moment: <span style={{color:'green'}}>{cartQuantity}</span></span> 
                     </div>
                 </Offcanvas.Title>
             </Offcanvas.Header>
